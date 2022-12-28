@@ -65,12 +65,6 @@ void Return::accept(Visitor &v) {
     v.doReturn(*this);
 }
 
-void Return::setInit(double x, double y, double z)
-{
-    this->x = x;
-    this->y = y;
-    this->z = z;
-}
 
 double	Return::getX() {
     return (this->x);

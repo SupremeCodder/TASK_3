@@ -23,6 +23,7 @@ public:
     void	setDepth(double d);
     double	getDepth();
 private:
+    std::string mis = "dive";
     double	z;
 };
 
@@ -34,6 +35,7 @@ public:
     double	getDepth();
 
 private:
+    std::string mis = "lift";
     double	z;
 };
 
@@ -59,7 +61,6 @@ public:
     double	getX();
     double	getY();
     double	getZ();
-    void	setInit(double x, double y, double z);
     std::string	returnTitle() override;
 };
 

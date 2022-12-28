@@ -1,3 +1,0 @@
-mission 1: Lift to z = 5
-mission 2: Dive to z = 5
-mission 3: Return to initial position and ending the mission: 0 0 100

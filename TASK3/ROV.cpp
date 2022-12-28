@@ -4,7 +4,12 @@
 
 #include "ROV.h"
 
-ROV::ROV(double x, double y, double z) : x(x), y(y), z(z) {}
+ROV::ROV()
+{
+    x = 0;
+    y = 0;
+    z = 100;
+}
 
 ROV::~ROV() = default;
 
@@ -24,6 +29,13 @@ Mission *ROV::createMission(std::string missionType)
         //ввод требуемой глубины аппарата
         std::cout << "Enter z: " << std::endl;
         std::cin >> buff_z;
+
+        if (this->z < buff_z)
+        {
+            std::cout << "Use mission /lift/ instead" << std::endl;
+            return (nullptr);
+        }
+
 
         //проверка условий 0 < z < 100
         if (buff_z < 0 || buff_z > MAX_Z)
@@ -49,6 +61,12 @@ Mission *ROV::createMission(std::string missionType)
         //ввод требуемой глубины аппарата
         std::cout << "Enter z: " << std::endl;
         std::cin >> buff_z;
+
+        if (this->z > buff_z)
+        {
+            std::cout << "Use mission /dive/ instead" << std::endl;
+            return (nullptr);
+        }
 
         //проверка условий 0 < z < 100
         if ( buff_z < 0 || buff_z > MAX_Z)
@@ -180,12 +198,38 @@ void ROV::listMission()
     ConsoleWriter	writer;
 
     writer.setCnt(1);
+
+    if (this->_missions.empty())
+    {
+        std::cout << "No missions entered" << std::endl;
+        return;
+    }
+    else
     for (auto it = this->getMissions().begin(); it != this->getMissions().end(); ++it) {
         output = *it;
         output->accept(writer);
     }
 }
 
-void ROV::printPosition() {
-    std::cout << "ROV z: " << this->z << ", y: " << this->x << ", y: " << this->y << std::endl;
+void ROV::printPosition() const {
+    std::cout << "ROV z: " << this->z << ", x: " << this->x << ", y: " << this->y << std::endl;
+}
+
+void ROV::help()
+{
+    std::cout << "-------------------------------------------------" << std::endl;
+    std::cout << "Commands list:" << std::endl;
+    std::cout << "add - add new mission" << std::endl;
+    std::cout << "del - removes a mission in position" << std::endl;
+    std::cout << "insert - inserts mission in position" << std::endl;
+    std::cout << "list - prints all missions" << std::endl;
+    std::cout << "pos - prints position of ROV" << std::endl;
+    std::cout << "help - prints possible commands and missions" << std::endl;
+    std::cout << "-------------------------------------------------" << std::endl;
+    std::cout << "Mission list:" << std::endl;
+    std::cout << "dive - moves ROV to z point" << std::endl;
+    std::cout << "lift - moves ROV to z point" << std::endl;
+    std::cout << "move - moves ROV to (x,y) point" << std::endl;
+    std::cout << "return - moves ROV to initial point" << std::endl;
+    std::cout << "-------------------------------------------------" << std::endl;
 }

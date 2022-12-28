@@ -24,14 +24,15 @@ private:
 
     Mission*	createMission(std::string missionType);
 public:
-    ROV(double x = 0, double y = 0, double z = 100);
+    ROV();
     ~ROV();
 
     bool	addMission();
     bool	insertMission();
     bool	deleteMission();
     void	listMission();
-    void	printPosition();
+    void	printPosition() const;
+    static void    help();
     std::list<Mission*>	&getMissions();
 };
 #endif //TASK3_ROV_H
